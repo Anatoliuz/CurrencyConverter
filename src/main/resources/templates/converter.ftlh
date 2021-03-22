@@ -48,9 +48,9 @@
 
                     <input
                             <#if amount??>
-                                value="${amount}"
+                                value=${amount}
                             </#if>
-                            name="amount" type="number" placeholder="Количество">
+                            name="amount" type="text" placeholder="Количество">
 
                 </div>
                 <div>
