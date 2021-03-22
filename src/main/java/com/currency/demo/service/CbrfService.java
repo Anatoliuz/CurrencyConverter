@@ -1,6 +1,5 @@
 package com.currency.demo.service;
 
-import com.currency.demo.model.CurrencyValue;
 import com.currency.demo.xml.ValCurs;
 import com.currency.demo.xml.ValCursRecord;
 

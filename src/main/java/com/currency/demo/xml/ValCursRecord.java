@@ -1,4 +1,3 @@
-
 package com.currency.demo.xml;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,9 +13,9 @@ import java.util.List;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -45,12 +44,10 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "record"
+        "record"
 })
 @XmlRootElement(name = "ValCurs")
 public class ValCursRecord {
@@ -68,25 +65,23 @@ public class ValCursRecord {
 
     /**
      * Gets the value of the record property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the record property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getRecord().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Record }
-     * 
-     * 
      */
     public List<Record> getRecord() {
         if (record == null) {
@@ -97,11 +92,9 @@ public class ValCursRecord {
 
     /**
      * Gets the value of the id property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getID() {
         return id;
@@ -109,11 +102,9 @@ public class ValCursRecord {
 
     /**
      * Sets the value of the id property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setID(String value) {
         this.id = value;
@@ -121,11 +112,9 @@ public class ValCursRecord {
 
     /**
      * Gets the value of the dateRange1 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getDateRange1() {
         return dateRange1;
@@ -133,11 +122,9 @@ public class ValCursRecord {
 
     /**
      * Sets the value of the dateRange1 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setDateRange1(String value) {
         this.dateRange1 = value;
@@ -145,11 +132,9 @@ public class ValCursRecord {
 
     /**
      * Gets the value of the dateRange2 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getDateRange2() {
         return dateRange2;
@@ -157,11 +142,9 @@ public class ValCursRecord {
 
     /**
      * Sets the value of the dateRange2 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setDateRange2(String value) {
         this.dateRange2 = value;
@@ -169,11 +152,9 @@ public class ValCursRecord {
 
     /**
      * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getName() {
         return name;
@@ -181,11 +162,9 @@ public class ValCursRecord {
 
     /**
      * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setName(String value) {
         this.name = value;
@@ -194,9 +173,9 @@ public class ValCursRecord {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -211,13 +190,11 @@ public class ValCursRecord {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "nominal",
-        "value"
+            "nominal",
+            "value"
     })
     public static class Record {
 
@@ -233,7 +210,6 @@ public class ValCursRecord {
 
         /**
          * Gets the value of the nominal property.
-         * 
          */
         public short getNominal() {
             return nominal;
@@ -241,7 +217,6 @@ public class ValCursRecord {
 
         /**
          * Sets the value of the nominal property.
-         * 
          */
         public void setNominal(short value) {
             this.nominal = value;
@@ -249,11 +224,9 @@ public class ValCursRecord {
 
         /**
          * Gets the value of the value property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is
+         * {@link String }
          */
         public String getValue() {
             return value;
@@ -261,11 +234,9 @@ public class ValCursRecord {
 
         /**
          * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setValue(String value) {
             this.value = value;
@@ -273,11 +244,9 @@ public class ValCursRecord {
 
         /**
          * Gets the value of the date property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is
+         * {@link String }
          */
         public String getDate() {
             return date;
@@ -285,11 +254,9 @@ public class ValCursRecord {
 
         /**
          * Sets the value of the date property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setDate(String value) {
             this.date = value;
@@ -297,11 +264,9 @@ public class ValCursRecord {
 
         /**
          * Gets the value of the id property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *
+         * @return possible object is
+         * {@link String }
          */
         public String getId() {
             return id;
@@ -309,11 +274,9 @@ public class ValCursRecord {
 
         /**
          * Sets the value of the id property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link String }
          */
         public void setId(String value) {
             this.id = value;

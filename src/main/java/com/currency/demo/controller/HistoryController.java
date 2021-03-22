@@ -4,6 +4,7 @@ import com.currency.demo.dto.HistoryDto;
 import com.currency.demo.service.CurrencyService;
 import com.currency.demo.service.HistoryService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,12 +35,13 @@ public class HistoryController {
     }
 
     @PostMapping
-    public ModelAndView post(HistoryDto dto) {
+    public ModelAndView post(@Validated HistoryDto dto) {
         Map<String, Object> map = new HashMap<>();
 
         map.put("currencies", currencyService.getList());
         map.put("inputCurrencyId", dto.getInputCurrencyId());
         map.put("outputCurrencyId", dto.getOutputCurrencyId());
+
         map.put("date", dto.getDate());
         map.put("historyList",
                 historyService.getByDate(dto.getDate(), dto.getInputCurrencyId(), dto.getOutputCurrencyId()));

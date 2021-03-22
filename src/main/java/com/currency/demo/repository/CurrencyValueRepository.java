@@ -7,5 +7,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface CurrencyValueRepository extends JpaRepository<CurrencyValue, Long> {
+
     Optional<CurrencyValue> findByCurrencyIdAndDate(Long currencyId, LocalDate date);
+
 }
