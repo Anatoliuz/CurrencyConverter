@@ -36,7 +36,7 @@ public class HistoryServiceImpl implements HistoryService {
         Currency outCur = currencyRepository.findById(outCurId)
                 .orElseThrow(() -> new CurrencyNotFoundException(outCurId));
 
-        return historyRepository.findAllByDateBetweenAndInCurAndOutCur(
+        return historyRepository.findAllByDateBetweenAndInCurIdAndOutCurId(
                 date.atStartOfDay(),
                 date.plusDays(1).atStartOfDay(),
                 inCur.getId(),

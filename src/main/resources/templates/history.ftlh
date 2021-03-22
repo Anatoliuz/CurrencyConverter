@@ -61,8 +61,8 @@
                     </tr>
                     <#list historyList as history>
                         <tr>
-                            <td>${history.inCur}</td>
-                            <td>${history.outCur}</td>
+                            <td>${history.inCur.name}</td>
+                            <td>${history.outCur.name}</td>
                             <td>${history.inSum}</td>
                             <td>${history.outSum}</td>
                             <td>${history.date}</td>

@@ -14,12 +14,17 @@ create table currencies.currencies
     external_id varchar(32) not null unique,
     num_code    int         not null unique,
     char_code   varchar(32) not null,
-    nominal     real,
-    name        varchar(64),
-    value       real
+    name        varchar(64)
 );
 
-
+create table currencies.values
+(
+    id          bigserial primary key,
+    currency_id bigserial references currencies.currencies (id),
+    nominal     real,
+    value       real,
+    date        date
+);
 
 create table currencies.history
 (
@@ -30,3 +35,9 @@ create table currencies.history
     out_sum real,
     date    timestamp with time zone
 );
+
+-- default user for tests
+-- login: 1
+-- password: 1
+insert into currencies.users (username, password, active)
+values (1, '$2y$12$nIYoE7HIeRr3CL31Baxw/uO7wfcVmgB5xdjy7aL545xhijiavU7uO', true)

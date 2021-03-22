@@ -2,10 +2,13 @@ package com.currency.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -17,11 +20,13 @@ public class HistoryEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "in_cur")
-    private Long inCur;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "in_cur", nullable = false)
+    private Currency inCur;
 
-    @Column(name = "out_cur")
-    private Long outCur;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "out_cur", nullable = false)
+    private Currency outCur;
 
     @Column(name = "in_sum")
     private double inSum;
@@ -34,7 +39,7 @@ public class HistoryEntry {
     public HistoryEntry() {
     }
 
-    public HistoryEntry(Long inCur, Long outCur, double inSum, double outSum, LocalDateTime date) {
+    public HistoryEntry(Currency inCur, Currency outCur, double inSum, double outSum, LocalDateTime date) {
         this.inCur = inCur;
         this.outCur = outCur;
         this.inSum = inSum;
@@ -51,19 +56,19 @@ public class HistoryEntry {
         this.id = id;
     }
 
-    public Long getInCur() {
+    public Currency getInCur() {
         return inCur;
     }
 
-    public void setInCur(Long inCur) {
+    public void setInCur(Currency inCur) {
         this.inCur = inCur;
     }
 
-    public Long getOutCur() {
+    public Currency getOutCur() {
         return outCur;
     }
 
-    public void setOutCur(Long outCur) {
+    public void setOutCur(Currency outCur) {
         this.outCur = outCur;
     }
 

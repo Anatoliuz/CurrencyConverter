@@ -1,26 +1,37 @@
 package com.currency.demo.service;
 
+import com.currency.demo.config.CurrenciesLoader;
 import com.currency.demo.exception.CurrencyNotFoundException;
+import com.currency.demo.exception.CurrencyValueNotFoundException;
 import com.currency.demo.model.Currency;
+import com.currency.demo.model.CurrencyValue;
 import com.currency.demo.model.HistoryEntry;
 import com.currency.demo.repository.CurrencyRepository;
+import com.currency.demo.repository.CurrencyValueRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 
-    private CurrencyRepository repository;
-    private HistoryService historyService;
+    private final CurrencyRepository repository;
+    private final CurrencyValueRepository currencyValueRepository;
+    private final HistoryService historyService;
+    private final CurrenciesLoader currenciesLoader;
 
-    public CurrencyServiceImpl(CurrencyRepository repository, HistoryService historyService) {
+    public CurrencyServiceImpl(CurrencyRepository repository, CurrencyValueRepository currencyValueRepository,
+                               HistoryService historyService, CurrenciesLoader currenciesLoader) {
         this.repository = repository;
+        this.currencyValueRepository = currencyValueRepository;
         this.historyService = historyService;
+        this.currenciesLoader = currenciesLoader;
     }
 
     @Transactional(readOnly = true)
@@ -41,21 +52,38 @@ public class CurrencyServiceImpl implements CurrencyService {
                 .orElseThrow(() -> new CurrencyNotFoundException(inId));
         var outCur = repository.findById(outId)
                 .orElseThrow(() -> new CurrencyNotFoundException(outId));
-        BigDecimal in = BigDecimal.valueOf(inCur.getValue());
-        BigDecimal out = BigDecimal.valueOf(outCur.getValue());
+
+        var now = LocalDate.now();
+
+        var inVal = currencyValueRepository.findByCurrencyIdAndDate(inId, now)
+                .orElseGet(() -> getCurrencyValueFromCbrf(inCur, now));
+        var outVal = currencyValueRepository.findByCurrencyIdAndDate(outId, now)
+                .orElseGet(() -> getCurrencyValueFromCbrf(outCur, now));
+
+        BigDecimal in = BigDecimal.valueOf(inVal.getValue());
+        BigDecimal out = BigDecimal.valueOf(outVal.getValue());
         BigDecimal amountBD = BigDecimal.valueOf(amount);
-        BigDecimal inNominal = BigDecimal.valueOf(inCur.getNominal());
-        BigDecimal outNominal = BigDecimal.valueOf(outCur.getNominal());
+        BigDecimal inNominal = BigDecimal.valueOf(inVal.getNominal());
+        BigDecimal outNominal = BigDecimal.valueOf(outVal.getNominal());
+
         double res = in.multiply(amountBD)
                 .divide(inNominal, 4, RoundingMode.HALF_DOWN)
                 .multiply(outNominal)
                 .divide(out, 4, RoundingMode.HALF_DOWN)
                 .doubleValue();
-        HistoryEntry historyEntry = new HistoryEntry(inCur.getId(), outCur.getId(), amount, res,
-                LocalDateTime.now());
-        historyService.create(historyEntry);
-        return historyEntry;
+
+        return historyService.create(
+                new HistoryEntry(inCur, outCur, amount, res, LocalDateTime.now())
+        );
+
+
     }
 
+    private CurrencyValue getCurrencyValueFromCbrf(Currency currency, LocalDate date) {
+        currenciesLoader.loadCurrencies(date);
+
+        return currencyValueRepository.findByCurrencyIdAndDate(currency.getId(), date)
+                .orElseThrow(() -> new CurrencyValueNotFoundException(currency.getId()));
+    }
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface HistoryRepository extends JpaRepository<HistoryEntry, Long> {
 
-    List<HistoryEntry> findAllByDateBetweenAndInCurAndOutCur(
+    List<HistoryEntry> findAllByDateBetweenAndInCurIdAndOutCurId(
             LocalDateTime dateStart,
             LocalDateTime dateEnd,
             Long inCurId,

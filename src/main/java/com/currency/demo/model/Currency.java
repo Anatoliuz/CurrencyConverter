@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(schema = "currencies", name = "currencies")
@@ -24,11 +25,7 @@ public class Currency {
     @Column(name = "char_code")
     private String charCode;
 
-    private double nominal;
-
     private String name;
-
-    private double value;
 
     public Long getId() {
         return id;
@@ -62,14 +59,6 @@ public class Currency {
         this.charCode = charCode;
     }
 
-    public double getNominal() {
-        return nominal;
-    }
-
-    public void setNominal(double nominal) {
-        this.nominal = nominal;
-    }
-
     public String getName() {
         return name;
     }
@@ -78,12 +67,19 @@ public class Currency {
         this.name = name;
     }
 
-    public double getValue() {
-        return value;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Currency currency = (Currency) o;
+        return Objects.equals(id, currency.id) && Objects.equals(externalId,
+                currency.externalId) && Objects.equals(numCode, currency.numCode) && Objects.equals(
+                charCode, currency.charCode) && Objects.equals(name, currency.name);
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, externalId, numCode, charCode, name);
     }
 
 }
