@@ -6,5 +6,5 @@
 4. cd ..
 5. java -jar target/demo-0.0.1-SNAPSHOT.jar
 
-login: 1
+login: 1  
 password: 1
