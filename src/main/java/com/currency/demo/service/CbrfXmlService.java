@@ -3,6 +3,7 @@ package com.currency.demo.service;
 import com.currency.demo.xml.ValCurs;
 import com.currency.demo.xml.ValCursRecord;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 public class CbrfXmlService implements CbrfService {
 
-    private HttpClient httpClient;
+    private final HttpClient httpClient;
 
     public CbrfXmlService(HttpClient httpClient) {
         this.httpClient = httpClient;
@@ -28,10 +29,14 @@ public class CbrfXmlService implements CbrfService {
 
     @Override
     public List<ValCurs.Valute> getCurrencies(LocalDate date) {
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-        String dateStr = date.format(formatters);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+
+        var uri = UriComponentsBuilder.fromUriString("http://www.cbr.ru/scripts/XML_daily.asp")
+                .queryParam("date_req", date.format(formatter))
+                .build().toUri();
+
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://www.cbr.ru/scripts/XML_daily.asp?date_req=22/03/2021"))
+                .uri(uri)
                 .build();
         String xml = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
